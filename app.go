@@ -13,6 +13,13 @@ func default_handler(res http.ResponseWriter, req *http.Request) {
     res.WriteHeader(http.StatusNotFound)
 }
 
+func getEnv(key, fallback string) string {
+	if value, ok := os.LookupEnv(key); ok {
+		return value
+	}
+	return fallback
+}
+
 func getListenAddress() string {
 	port := getEnv("PORT", "80")
 	return ":" + port
